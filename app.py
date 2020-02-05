@@ -9,11 +9,18 @@ installPackage('boto3')
 import boto3
 installPackage('pandas')
 import pandas as pd 
-installPackage('csv')
 import csv
-installPackage('threading')
 import threading
 
+# Write to s3
+with open('training_dataset.csv', 'w', newline='') as file:
+	writer = csv.writer(file)
+	writer.writerow(["timestamp", "apiload", "memoryusage", "cpu", "podid", "clusterid"])
+	writer.writerow(["2020-02-23 7:00:10", 5111.11, 765.92, 3.74, "10.11.12.13", "14.15.16.17"])
+	writer.writerow(["2020-02-23 8:00:10", 6111.11, 865.92, 4.74, "10.11.12.13", "14.15.16.17"])
+	writer.writerow(["2020-02-23 9:00:10", 7111.11, 965.92, 5.74, "10.11.12.13", "14.15.16.17"])
+	writer.writerow(["2020-02-23 10:00:10", 8111.11, 265.92, 6.74, "10.11.12.13", "14.15.16.17"])
+  
 def printit():
   threading.Timer(5.0, printit).start()
   print('Write to s3 bucket')
