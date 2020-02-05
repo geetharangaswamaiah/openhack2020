@@ -24,7 +24,8 @@ session = boto3.Session(
     aws_access_key_id = 'AKIA5UBFMXG4DJITDQOB',
     aws_secret_access_key = '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'
 )
-bucket = s3_connection.get_bucket('machinetrainers')
+s3_resource = session.resource('s3')
+bucket = s3_resource.get_bucket('machinetrainers')
 key = boto.s3.key.Key(bucket, 'training_dataset.csv')
 
 def printit():
@@ -36,6 +37,16 @@ def printit():
 	print('Updating file on s3 bucket...')
 	with open('training_dataset.csv') as f:
     		key.send_file(f)
+	# Read csv file from s3
+	client = boto3.client('s3', aws_access_key_id='AKIA5UBFMXG4DJITDQOB',
+        	aws_secret_access_key='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')
+	object_key = 'training_dataset.csv'
+	csv_obj = client.get_object(Bucket = 'machinetrainers', Key=object_key)
+	body = csv_obj['Body']
+	csv_string = body.read().decode('utf-8')
+	df = pd.read_csv(StringIO(csv_string))
+	print('File updated!')
+	print(df)
 	
 
 printit()
