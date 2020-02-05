@@ -23,9 +23,15 @@ dict = {'timestamp': timestamp, 'apiload': apiload, 'memoryusage': memoryusage, 
 df = pd.DataFrame(dict) 
 print(df)
 
+# Connect to s3 bucket
+session = boto3.Session(
+    aws_access_key_id = 'AKIA5UBFMXG4DJITDQOB',
+    aws_secret_access_key = '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'
+)
+s3_resource = session.resource('s3')
 # Write to csv file
 bucket = 'machinetrainers' # already created on S3
 csv_buffer = StringIO()
 df.to_csv(csv_buffer)
-s3_resource = boto3.resource('s3')
+# s3_resource = boto3.resource('s3')
 s3_resource.Object(bucket, 'df.csv').put(Body=csv_buffer.getvalue())
