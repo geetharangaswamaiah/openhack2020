@@ -1,6 +1,7 @@
 import subprocess
 import sys
 subprocess.check_call([sys.executable, "-m", "pip", "install", 'boto3'])
+subprocess.check_call([sys.executable, "-m", "pip", "install", 'pandas'])
       
 from io import StringIO # python3; python2: BytesIO 
 import boto3
