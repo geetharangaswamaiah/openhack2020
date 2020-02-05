@@ -2,6 +2,7 @@ from io import StringIO # python3; python2: BytesIO
 import boto3
 import pandas as pd 
 
+print('Hello World!')
 # Data to write
 timestamp = ['2020-02-20 1:00:10']
 apiload = [1002.3] 
