@@ -27,7 +27,7 @@ session = boto3.Session(
 s3_resource = session.resource('s3')
 
 def myfunction():
-	threading.Timer(10.0, printit).start()
+	threading.Timer(10.0, myfunction).start()
 	print('Appending new data to file\n')
 	with open('training_dataset.csv', 'a', newline='') as file:
 		writer = csv.writer(file)
