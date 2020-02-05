@@ -29,7 +29,11 @@ key = boto.s3.key.Key(bucket, 'training_dataset.csv')
 
 def printit():
 	threading.Timer(10.0, printit).start()
-  	print('Updating file on s3 bucket...')
+	print('Appending new data to file...')
+	with open('training_dataset.csv', 'a', newline='') as file:
+		writer = csv.writer(file)
+		writer.writerow(["2020-02-23 7:00:10", 5111.11, 765.92, 3.74, "10.11.12.13", "14.15.16.17"])
+	print('Updating file on s3 bucket...')
 	with open('training_dataset.csv') as f:
     		key.send_file(f)
 	
